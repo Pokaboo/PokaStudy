@@ -1,0 +1,22 @@
+# Checklist
+
+- [x] `@supabase/supabase-js` 已安装并在 package.json 中可见
+- [x] `src/app/lib/supabase.ts` 文件存在，正确导出 Supabase 客户端实例
+- [x] `.env` 文件包含 `VITE_SUPABASE_URL` 和 `VITE_SUPABASE_ANON_KEY` 变量
+- [x] `src/app/contexts/AuthContext.tsx` 正确实现认证状态管理
+- [x] `src/main.tsx` 中 App 被 AuthProvider 包裹
+- [x] `src/app/pages/LoginPage.tsx` 包含邮箱密码登录表单及错误/加载处理
+- [x] `src/app/pages/RegisterPage.tsx` 包含邮箱密码注册表单及错误/加载处理
+- [x] 未登录用户访问主页时自动重定向到登录页
+- [x] 已登录用户访问登录/注册页时自动重定向到主页
+- [x] App.tsx 中 localStorage 相关代码已移除
+- [x] 任务数据从 Supabase 加载（而非 localStorage）
+- [x] 打卡数据从 Supabase 加载（而非 localStorage）
+- [x] 新建任务可写入 Supabase 并实时显示
+- [x] 编辑任务可更新 Supabase 并实时反映
+- [x] 删除任务可从 Supabase 删除并实时反映
+- [x] 打卡操作可写入 Supabase
+- [x] 首次登录时自动注入示例数据到 Supabase
+- [x] 退出登录功能可用，回到登录页
+- [x] Header 区域显示当前用户邮箱
+- [x] `npm run build` 构建成功无错误
