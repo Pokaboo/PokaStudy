@@ -4,8 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "prebuild": "node scripts/decrypt-env.js",
-    "build": "vite build",
+    "build": "node scripts/decrypt-env.js && vite build",
     "dev": "vite"
   },
   "dependencies": {
