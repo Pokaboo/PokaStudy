@@ -45,7 +45,7 @@ export default function App() {
   useEffect(() => {
     if (!user) return;
     loadUserData();
-  }, [user]);
+  }, [user?.id]);
 
   const loadUserData = async () => {
     if (!user) return;
@@ -57,13 +57,16 @@ export default function App() {
       .eq('user_id', user.id);
 
     if (existingTasks && existingTasks.length > 0) {
-      const mappedTasks: Task[] = existingTasks.map((t: Record<string, unknown>) => ({
-        id: t.id as string,
-        name: t.name as string,
-        description: t.description as string,
-        createdAt: t.created_at as string,
-        color: t.color as string,
-      }));
+      const todayStr = getTodayStr();
+      const mappedTasks: Task[] = existingTasks
+        .map((t: Record<string, unknown>) => ({
+          id: t.id as string,
+          name: t.name as string,
+          description: t.description as string,
+          createdAt: t.created_at as string,
+          color: t.color as string,
+        }))
+        .filter((t) => t.createdAt.substring(0, 10) === todayStr);
       setTasks(mappedTasks);
     } else {
       setTasks([]);
