@@ -15,6 +15,7 @@ import { StatsBar } from './components/StatsBar';
 import { TaskSection } from './components/TaskSection';
 import { HeatmapChart } from './components/HeatmapChart';
 import { LoginPage } from './pages/LoginPage';
+import { Popover, PopoverTrigger, PopoverContent } from './components/ui/popover';
 import { Activity, LogOut } from 'lucide-react';
 
 type Page = 'login' | 'main';
@@ -359,25 +360,53 @@ function RecentActivity({ checkIns, tasks }: { checkIns: CheckIn[]; tasks: Task[
             <div key={date} className="flex items-start gap-3">
               <div className="shrink-0 text-xs text-slate-400 w-10 pt-1 text-right">{label}</div>
               <div className="flex-1 flex flex-wrap gap-1.5">
-                {items.map((ci) => (
-                  <div
-                    key={ci.id}
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs"
-                    style={{
-                      backgroundColor: getTaskColor(ci.taskId) + '18',
-                      color: getTaskColor(ci.taskId),
-                    }}
-                  >
-                    <div
-                      className="w-1.5 h-1.5 rounded-full shrink-0"
-                      style={{ backgroundColor: getTaskColor(ci.taskId) }}
-                    />
-                    {ci.taskName}
-                    {ci.time && (
-                      <span className="opacity-60">{ci.time.substring(0, 5)}</span>
-                    )}
-                  </div>
-                ))}
+                {items.map((ci) => {
+                  const task = tasks.find((t) => t.id === ci.taskId);
+                  return (
+                    <Popover key={ci.id}>
+                      <PopoverTrigger asChild>
+                        <button
+                          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs cursor-pointer transition-all hover:scale-105"
+                          style={{
+                            backgroundColor: getTaskColor(ci.taskId) + '18',
+                            color: getTaskColor(ci.taskId),
+                          }}
+                        >
+                          <div
+                            className="w-1.5 h-1.5 rounded-full shrink-0"
+                            style={{ backgroundColor: getTaskColor(ci.taskId) }}
+                          />
+                          {ci.taskName}
+                          {ci.time && (
+                            <span className="opacity-60">{ci.time.substring(0, 5)}</span>
+                          )}
+                        </button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-64" align="start" sideOffset={6}>
+                        <div className="flex flex-col gap-2">
+                          <div className="flex items-center gap-2">
+                            <div
+                              className="w-2.5 h-2.5 rounded-full shrink-0"
+                              style={{ backgroundColor: getTaskColor(ci.taskId) }}
+                            />
+                            <span className="text-sm font-semibold" style={{ color: getTaskColor(ci.taskId) }}>
+                              {ci.taskName}
+                            </span>
+                          </div>
+                          {task?.description && (
+                            <p className="text-xs text-slate-500 leading-relaxed">
+                              {task.description}
+                            </p>
+                          )}
+                          <div className="flex items-center gap-3 text-xs text-slate-400 pt-1 border-t border-slate-100">
+                            <span>{ci.date}</span>
+                            <span>{ci.time}</span>
+                          </div>
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  );
+                })}
               </div>
             </div>
           );
