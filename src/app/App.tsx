@@ -14,6 +14,7 @@ import { Clock } from './components/Clock';
 import { StatsBar } from './components/StatsBar';
 import { TaskSection } from './components/TaskSection';
 import { HeatmapChart } from './components/HeatmapChart';
+import { WeekChart } from './components/WeekChart';
 import { LoginPage } from './pages/LoginPage';
 import { Popover, PopoverTrigger, PopoverContent } from './components/ui/popover';
 import { Activity, LogOut } from 'lucide-react';
@@ -269,7 +270,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col gap-6">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex flex-col gap-6">
         <StatsBar
           totalDays={totalDays}
           streak={streak}
@@ -278,7 +279,7 @@ export default function App() {
         />
 
         <div className="flex flex-col lg:flex-row gap-6 items-start">
-          <div className="w-full lg:w-80 xl:w-96 shrink-0">
+          <div className="w-full lg:w-[352px] xl:w-[420px] shrink-0">
             <TaskSection
               tasks={tasks}
               checkIns={checkIns}
@@ -309,9 +310,19 @@ export default function App() {
             </div>
 
             <RecentActivity checkIns={checkIns} tasks={tasks} />
+
+            <WeekChart checkIns={checkIns} tasks={tasks} />
           </div>
         </div>
       </main>
+
+      <footer className="mt-8 py-6 border-t border-slate-100 bg-white/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+          <p className="text-xs text-slate-400">
+            PokaStudy · 时光有痕，不负朝夕
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
