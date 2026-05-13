@@ -250,6 +250,7 @@ export function TaskSection({
   const [showColorPicker, setShowColorPicker] = useState(false);
 
   const today = getTodayStr();
+  const todayTasks = tasks.filter((t) => t.createdAt.substring(0, 10) === today);
 
   const getIsCheckedToday = (taskId: string) =>
     checkIns.some((ci) => ci.taskId === taskId && ci.date === today);
@@ -269,7 +270,7 @@ export function TaskSection({
     setShowColorPicker(false);
   };
 
-  const todayCheckedCount = tasks.filter((t) => getIsCheckedToday(t.id)).length;
+  const todayCheckedCount = todayTasks.filter((t) => getIsCheckedToday(t.id)).length;
 
   return (
     <div className="flex flex-col gap-4">
@@ -279,9 +280,9 @@ export function TaskSection({
           <h2 className="text-slate-800" style={{ fontWeight: 700, fontSize: '1rem' }}>
             我的任务
           </h2>
-          {tasks.length > 0 && (
+          {todayTasks.length > 0 && (
             <p className="text-slate-400 text-xs mt-0.5">
-              今日已完成 {todayCheckedCount} / {tasks.length}
+              今日已完成 {todayCheckedCount} / {todayTasks.length}
             </p>
           )}
         </div>
@@ -375,7 +376,7 @@ export function TaskSection({
       </AnimatePresence>
 
       {/* Task list */}
-      {tasks.length === 0 && !showAddForm && (
+      {todayTasks.length === 0 && !showAddForm && (
         <div className="text-center py-12 text-slate-400">
           <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-3">
             <Plus size={24} className="text-slate-300" />
@@ -386,7 +387,7 @@ export function TaskSection({
 
       <div className="flex flex-col gap-3">
         <AnimatePresence mode="popLayout">
-          {tasks.map((task) =>
+          {todayTasks.map((task) =>
             editingId === task.id ? (
               <EditForm
                 key={task.id}

@@ -59,7 +59,6 @@ export default function App() {
       .eq('user_id', user.id);
 
     if (existingTasks && existingTasks.length > 0) {
-      const todayStr = getTodayStr();
       const mappedTasks: Task[] = existingTasks
         .map((t: Record<string, unknown>) => ({
           id: t.id as string,
@@ -67,8 +66,7 @@ export default function App() {
           description: t.description as string,
           createdAt: t.created_at as string,
           color: t.color as string,
-        }))
-        .filter((t) => t.createdAt.substring(0, 10) === todayStr);
+        }));
       setTasks(mappedTasks);
     } else {
       setTasks([]);
