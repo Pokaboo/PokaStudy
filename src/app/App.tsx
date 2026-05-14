@@ -15,6 +15,7 @@ import { StatsBar } from './components/StatsBar';
 import { TaskSection } from './components/TaskSection';
 import { HeatmapChart } from './components/HeatmapChart';
 import { WeekChart } from './components/WeekChart';
+import HuskyPet from './components/HuskyPet';
 import { LoginPage } from './pages/LoginPage';
 import { Popover, PopoverTrigger, PopoverContent } from './components/ui/popover';
 import { Activity, LogOut } from 'lucide-react';
@@ -278,6 +279,7 @@ export default function App() {
 
         <div className="flex flex-col lg:flex-row gap-6 items-start">
           <div className="w-full lg:w-[352px] xl:w-[420px] shrink-0">
+            <HuskyPet />
             <TaskSection
               tasks={tasks}
               checkIns={checkIns}
